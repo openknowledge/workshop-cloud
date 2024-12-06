@@ -8,6 +8,14 @@ for (const user of users) {
   console.log("von Open Knowledge <u>https://www.openknowledge.de/</u><br/>");
 
   console.log("<br/>");
+
+  console.log(
+    "Git-Repo: <u>https://github.com/openknowledge/workshop-cloud</u>"
+  );
+
+  console.log("<br/>");
+
+  console.log("<br/>");
   console.log("Deine Zugangsdaten für AWS<br/>");
 
   console.log("<br/>");
@@ -28,6 +36,10 @@ for (const user of users) {
 
   console.log("Access Key ID: " + user.access_key + "<br/>");
   console.log("Secret Access Key: " + user.secret_key + "<br/>");
+
+  console.log("<br/>");
+
+  console.log("Für Copy&Paste: <u>https://bit.ly/ok-cloud-users​</u>");
 
   console.log("<br/>");
 
