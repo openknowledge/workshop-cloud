@@ -6,8 +6,13 @@ powered by [open knowledge](https://www.openknowledge.de)
 Welcome to the open knowledge hands-on cloud workshop based on [AWS](https://aws.amazon.com/console/) 
 and [GitHub Codespaces](https://github.com/features/codespaces). 
 
-During this workshop you will learn step-by-step how to build up and improve a cloud-based application. Starting with a simple lift & shift scenario using plain cloud compute resources, you will get to know and 
-integrate several managed clod platform services to successively improve the solution in this way.
+During this workshop you will learn step-by-step how to build up and improve a cloud-based application. 
+Starting with a simple lift & shift scenario using plain cloud compute resources, you will get to know and 
+integrate several managed cloud platform services to successively improve the solution in this way.
+
+**Note:** 
+> Even though the various exercises are tailored to the AWS Cloud, most of the paradigms and patterns 
+shonw during the workshop can be applied 1:1 to other cloud providers.
 
 ## Prerequisite
 
