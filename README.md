@@ -50,7 +50,7 @@ The output should look like ...
 **Note:**
 You only need to start the frontend once and leave it running for the duration of the workshop. 
 
-### Backend installation and set up of the frontend
+### Backend installation, start and test
 
 After having installed and started our frontend let's take care of the backend: 
 
