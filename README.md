@@ -201,7 +201,7 @@ load balancer URL from the frontend showcases configuration typescript file `sho
     ```
     export const SHOWCASES: ShowcaseConfig = {
         "1 – Lift & Shift": {
-            baseUrl: "http:[LOAD_BALANCER_DNS]/",
+            baseUrl: "http:[LOAD_BALANCER_DNS]",
         },
     ```
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "1 – Lift & Shift"
