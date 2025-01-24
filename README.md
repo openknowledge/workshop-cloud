@@ -61,7 +61,7 @@ After having installed and started our frontend let's take care of the backend:
     $ mvn spring-boot:run
     ```
    
-    This command will first package our Java backend and start it afterwards as a self contained application 
+    This command will first package our Java backend and start it afterward as a self-contained application 
 using the Spring Boot mechanism. At the end of the log output you will find the port under which the backend can 
 be reached. 
 
@@ -75,23 +75,36 @@ be reached.
     ```
     You have to confirm that 'you are about to access a development port served by someone's codespace'
 
+### Connecting frontend and backend
 
-Congratulations! You have finished your first hands-on exercise using GitHub Codespaces. 
+_DRAFT VERSION - CHANGES MY OCCUR DUE TO CODESPACES TLS ISSUE_
+
+Last but not least we have to connect our backend with our frontend. To do so we will have to reference  
+the URL of or backend inside the frontend showcases configuration typescript file: 
+
+1. To look up and copy the backend URL open the VSCode ports tab in your Codespace and 
+copy the URL that is referenced for port 8080. Make sure that the visibility is set to public!
+
+2. Go to the typescript file showcases.ts that can be found in ./frontend/src of your frontend 
+project. Replace the fake URL `baseUrl: http://todo.invalid` of the entry "0 – On-Premises" with 
+the valid URL of the backend. The result should look like.   
+
+    ```
+    export const SHOWCASES: ShowcaseConfig = {
+        "0 – On-Premises": {
+            baseUrl: "http:[ASIGNED_CODESPACE_URI]/users",
+        },
+    ```
+3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "0 – On-Premises" 
+in the dropdown. 
+
+4. Check if the ok-forum app works properly by clicking through the forums categories, topics and 
+discussions. 
+
+**Note**: Don't forget to stop the backend by pressing Ctrl+C in the backend terminal.
+
+### Congratulations ...  
+
+You have finished your first hands-on exercise using GitHub Codespaces.
 
 Now let's GO TO THE CLOUD ...
-
-
-**TBD - will not work so far!** 
-
-5. Connect the frontend to the backend
-   - Adjust the showcase "0 – On-Premises" in `frontend/src/showcases.ts`
-     - Set the base URL to the URL of the backend
-         - Reminders:
-             - You will find the URLs in the VSCode Codespaces ports tab
-             - The Backend Service runs on Port 8080
-             - The Backend Port Visibility must be set to public
-     - Open the App in the Browser and select the showcase "0 – On-Premises" in the dropdown
-     - Check if the app works properly
-
-6. Stop the backend by pressing Ctrl+C in the backend terminal
-
