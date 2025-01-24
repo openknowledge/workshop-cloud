@@ -92,7 +92,7 @@ the valid URL of the backend. The result should look like.
     ```
     export const SHOWCASES: ShowcaseConfig = {
         "0 – On-Premises": {
-            baseUrl: "http:[ASIGNED_CODESPACE_URI]/users",
+            baseUrl: "http:[ASIGNED_CODESPACE_URI]",
         },
     ```
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "0 – On-Premises" 
