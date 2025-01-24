@@ -138,7 +138,7 @@ from the frontend showcases configuration typescript file `showcases.ts`:
     ```
     export const SHOWCASES: ShowcaseConfig = {
         "1 – Lift & Shift": {
-            baseUrl: "http:[ASIGNED_EC2_PUBLIC_IPv4_ADDRESS]/users",
+            baseUrl: "http:[ASIGNED_EC2_PUBLIC_IPv4_ADDRESS]",
         },
     ```
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "1 – Lift & Shift"
