@@ -1,7 +1,7 @@
 # Hands-On Cloud Workshop
 powered by [open knowledge](https://www.openknowledge.de)
 
-## Step 2: Lift & Shift (extended version)
+## Step 1b: Lift & Shift (extended version)
 
 In this exercise, we want to take our current status of the lift & shift solution to the next level. 
 To this end, we want to automate the provisioning and thus make it reproducible. Instead of installing 
