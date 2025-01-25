@@ -159,18 +159,17 @@ related to the service update (this may take several minutes).
 
 ### Quick-test the changes
 
+To quick-test the changes just call one of the backend service APIs via AppRunner 
+service from a browser of your choice:
 
-
-
-
-
-
-    
-
+    ```
+    http:[APP_RUNNER_SERVICE_ADDRESS]/users
+    ```
 
 ### Connect our frontend to the AppRunner service
 
-After successfully being deployed it is time to connect our frontend to the AppRunner service.
+After successfully being deployed it is time to finish this exercise and connect our frontend 
+to the AppRunner service: 
 
 1. Goto AppRunner service page and select your AppRunner instance
 2. Copy the AppRunner service default domain
@@ -184,42 +183,24 @@ backend. The result should look like.
     },
     ```
 
-To test the AppRunner service and the connection from our frontend to it open including 
-the DynamoDB table access open the ok-forum app in a browser of your choice (URL see above) 
+To test the AppRunner service and the connection from our frontend to it - including 
+the DynamoDB table access - open the ok-forum app in a browser of your choice (URL see above) 
 and select the showcase "3 – PaaS" in the dropdown.  Check if the ok-forum app works properly 
 by clicking through the forums categories, topics and discussions. Add some topics and check 
 the DynamoDB table for corresponding changes. 
 
+**Note**: The AWS management console may display DynamoDB changes with a (huge) delay. So don't 
+worry if you can not find your new entries immediately. Also check the log events of your AppRunner 
+service instead. 
+
 ### Congratulation
 
-Making use of the AppRunner service we have benefit from one of the advanced managed services of AWS.
-Next we will get to know some platform services (aka PaaS) in general and connect our backend to
-a noSQL service for date and information storage and retrieval called DynamoDB.
+With the help of the AppRunner service we managed to redesign (add a DynamoDB table) and redeploy
+our backend service within minutes instead of hours. The only thing we had to do is updating the 
+backend service itself and its related container image and push the image to the elastic container 
+registry (ECR) afterwards.   
 
-Fasten your seatbelts PaaS service! HERE WE COME ... 
+Next we will make use of serverless functions to react to cloud events. 
 
-
-##############
-
-
-4. Change the configuration of your app runner service
-
-    - Add a new environment variable called `DYNAMODB_TABLE`
-    - The value of the variable should be the name of your DynamoDB table (see 1.)
-
-5. Wait until the new version of the backend is deployed (or do it manually)
-
-6. Connect the frontend to AppRunner service
-
-    - Adjust the showcase "3 – PaaS" in showcases.ts
-    - Set the base URL using the default domain of your app runner service
-    - Select showcase "3 – PaaS" and check if the app works properly
-
-7. Check the DynamoDB table in the AWS Management Console
-
-    - You should see some test data that was inserted automatically
-
-8. Use the frontend to add few more topics
-    - Check if you can see them in DynamoDB table
-    - Feel free to change the data of a few items
+NO SEVER NO STRESS, SERVERLESS ... 
 
