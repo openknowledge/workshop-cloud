@@ -3,14 +3,21 @@ powered by [open knowledge](https://www.openknowledge.de)
 
 ## Step 1: Lift & Shift (simple version)
 
-In this exercise, we will take our first steps in the cloud. To this end, we will provision 
-an EC2 compute instance in the AWS cloud and then install our application on this backend and 
-start it as an externally accessible service.
+In this exercise, we will take our first steps into the cloud. To this end, we will provision 
+an EC2 compute instance in the AWS cloud and install our application on this instance. We then 
+start the backend in such a way that it can be accessed from outside the cloud.
+
+During this exercise you will learn how to:
+- Login into the AWS Cloud 
+- Provision an EC2 instance
+- Install a java application on EC2
+- Quicktest the cloud setup
+- Connect the frontend to the cloud-based backend
 
 **Note:**
 > Make sure you are on branch `1a_lift_and_shift`.
 
-### Log in into the AWS Cloud
+### Login into the AWS Cloud
 
 First of all we have to connect to the AWS Cloud: 
 
@@ -21,15 +28,15 @@ First of all we have to connect to the AWS Cloud:
    - IAM username: [YOUR ANIMAL]
    - Password: [YOUR ANIMAL PWD]
 
-After successfully logged in You should see the AWS CLoud main dashboard.
+After successfully logged in you should see the AWS Cloud main dashboard.
 
 **Note**: Make sure the region in the upper right corner of the browser window 
-is set to "Europe (Frankfurt)" aka eu-central-1. 
+is set to "Europe (Frankfurt)" aka `eu-central-1`. 
 
 ### Provision EC2 instance 
 
-To provision and launch an EC2 instance we have to call the EC2 service configuration webpage first. 
-There are several ways to do so: 
+To provision an EC2 instance we have to call the EC2 service configuration webpage 
+of the AWS management console first. There are several ways to do so: 
 
   - use global quick search and lookup for "EC2"
   - select EC2 service from service overview via "compute"
@@ -39,29 +46,31 @@ Use the EC2 service dashboard to launch a new instance:
 
 1. Click "Launch instance" button. This will bring you to a dedicated page 
 to configure your future instance. 
-2. Name and tags: mame your instance with the prefix of your animal, e.g. dog-ec2. 
-3. Application and OS images: Select the most recent Amazon Linux as OS (should be preselected).
-4. Instance type: select t3a.nano
-5. Key pair: select "Proceed without a keypair"
-6. Network settings:
-- click "Select existing security group"
-- select the predefined workshop security group "EC2"
-7. Open "Advanced details" block:   
-- select the predefined IAM instance profile "EC2"
+2. Fill in the following values (Leave everything els as is but feel free to read the different 
+configuration topics and options):
+   - Name and tags: name your instance with the prefix of your animal, e.g. dog-ec2. 
+   - Application and OS images: Select the most recent Amazon Linux as OS (should be preselected). 
+   - Instance type: select t3a.nano 
+   - Key pair: select "Proceed without a keypair"
+   - Network settings:
+     - click "Select existing security group"
+     - select the predefined workshop security group "EC2"
+   - Open "Advanced details" block:   
+       - select the predefined IAM instance profile "EC2"
 
-**Note**: Leave everything els as is but feel free to read the different configuration topics and options. 
-
-Finally, click "Launch instance". You will see a success page when everything done right. 
+Finally, click "Launch instance". You will see a success page when everything done right. Stay on this 
+page, please. We will need the EC2 instance information shown on this page for the next step(s). 
 
 ### Install backend service 
 
-To install the service on the EC2 instance we have just provisioned, we first must connect to it. 
-There are several ways to do so. At the moment the most simple way is to use the EC2 Session Manager. 
+To install the java based backend service on the EC2 instance, we first must connect to this EC2 instance. 
+There are several ways to do so. In respect to our current state of cloud knowledge the most simple way 
+is to use the EC2 Session Manager. 
 
 Connect to EC2 instance: 
 
 1. Choose "Connect to instance" on success page.
-2. Select Session Manager tab.
+2. Select "Session Manager" tab.
 3. Click "connect" button. 
    After some seconds you should see a terminal window indicating that the connection was successful: 
     
@@ -72,7 +81,8 @@ Connect to EC2 instance:
 Type in the `whoami` command to check your EC2 user.  
 
 Now we can start to install our backend on the just provisioned EC2 instance. Cause there 
-is no java version installed so far, we have to do this first: 
+is no java version installed so far but our backend service depends on a java runtime, we 
+have to install java first: 
 
 1. Install Java 21:  
 
@@ -99,13 +109,13 @@ you may not be in your home directory!
     sudo java -jar v2.jar --server.port=80
     ```
    
-When everything went well, you should see a corresponding Spring Boot output. 
+You should see a corresponding Spring Boot output when everything went well.  
 
 ### Quick-test EC2-based backend service
 
 Great, our backend services seems to work. But to be sure we should call it via web browser, postman
-or whatever. Therefor we have to look up the public available URL of our EC2 instance and call one of 
-the REST-ful services of our backend:
+or whatever. Therefore, we have to look up the public available URL of our EC2 instance and call one of 
+the REST-ful service APIs of our backend:
 
 1. Lookup backend URL via EC2 instances dashboard
    - choose YOUR EC2 instance  
