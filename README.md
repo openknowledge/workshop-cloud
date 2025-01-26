@@ -4,26 +4,28 @@ powered by [open knowledge](https://www.openknowledge.de)
 ## Step 2: Managed Services (simple version)
 
 During the last exercise we learned how to set up, build and start a scalable backend service making use of 
-several AWS components, in particular
+several advanced cloud components, in particular
+
 - Application Load Balancer
 - Target Group
 - Auto Scaling Group
 - Launch Template
 - EC2 Instance 
 
-As we also learned there is still a lot of "manual" work to do to realise such a scenario, even if 
-using launch templates and auto-scaling.   
+But although we have consciously opted for these advanced cloud components, we have also seen that a lot of 
+manual work / steps are still necessary to realise such a scenario. 
 
-In this exercise, we will take our so far solution to the next level and make use of a cloud managed
-service called [AppRunner](https://aws.amazon.com/de/apprunner/). AWS AppRunner is an application and / 
-or (backend / frontend) hosting and delivering provider and therefore will take care of most of the 
-manual steps from our previous example.
+In this exercise, we will try to minimise the effort required to set up the same scenario my making use of 
+a cloud managed service called [AppRunner](https://aws.amazon.com/de/apprunner/). AWS AppRunner is an 
+application and / or (backend / frontend) delivery and hosting service and therefore will take care of most of the 
+manual steps from our previous exercise.
 
-To make use of the benefits of AppRunner we have to build a docker image containing our backend service  
-and push this image to the fully managed [Elastic Container Registry (ECR)](https://aws.amazon.com/de/ecr/) 
-of AWS first.     
+To make use of the benefits of AppRunner we first have to build a docker container image containing our backend 
+service and push this image to the fully managed [Elastic Container Registry (ECR)](https://aws.amazon.com/de/ecr/) 
+of AWS.     
 
 During this exercise you will:
+
 - Log into the AWS Cloud via command line interface (AWS CLI)
 - Make use of the cloud container registry
 - Build a docker image containing our backend service and push it to ECR 
@@ -35,12 +37,17 @@ During this exercise you will:
 
 ### Using AWS CLI to connect to the cloud  
 
-First of all we want to connect to AWS via AWS CLI. This is necessary to be able to 
-push the docker image with our backend service to the Elastic Container Registry later on. 
+First of all we want to connect to our AWS account via AWS command line interface (ala AWS CLI). This is necessary to 
+be able to push the docker image with our backend service to the Elastic Container Registry later on. Fortunately we 
+already installed the AWS CLI tool when setting up the GitHub Codespace. 
+
+**Note**: For the next step, you will need an AWS credential, which you were given for the workshop.
+
+Connect to our AWS account via AWS command line interface: 
 
 1. open a new terminal in Codespaces using the terminal tab
 2. Configure your AWS connection using the `aws configure` command that will
-ask you step by step for all relevant information to sign in to AWS via cli:    
+ask you step-by-step for all relevant information to sign in to AWS via cli:    
     ```
     $ aws configure
        
@@ -49,17 +56,18 @@ ask you step by step for all relevant information to sign in to AWS via cli:
     Default region name [None]: eu-central-1 
     Default output format [None]: json
     ```
-3. Make an AWS CLI call to test connection, e.g. asking for the caller identity (aka YOU):  
+3. Make an AWS CLI call to test connection, e.g. asking for the caller identity (aka YOU):
     ```
     $ aws sts get-caller-identity
+    ```
    
-   
-    OUTPUT SHOULD LOOK LIKE:  
-    {
+    The output should look something like ...
+    ```
+    {  
        "UserId": "AIDASVQKHPCR2LKF6UHNT",
        "Account": "183631313059",
        "Arn": "arn:aws:iam::183631313059:user/dog"
-    }
+    }  
     ```
 
 ### Make use of the cloud container registry (ECR)
@@ -74,12 +82,11 @@ Let's start with creating the ECR for our/your account:
 2. Log into your AWS account via web console using your credentials.
 3. Choose AWS ECR service via global search or service overview (Container). 
 4. Click "Create repository". This will lead you to the "Create a private repository" page.
-5. Fill in the following values: 
-   - repository name: name your ECR with the prefix of your animal, e.g. dog-container-repository.
-   - leave everything else as is but feel free to take a look at the different configuration options
+5. Fill in the following values (and leave everything else as is): 
+   - repository name: use your animal as prefix, e.g. dog-container-repository.
 6. Click "Create" to initialize and create an empty container repository. 
 
-Next we want to build a docker image containing our backend service and push it to the registry: 
+Next, we want to build a docker image containing our backend service and push it to the registry: 
 
 1. Open a new terminal in Codespaces using the terminal tap. 
 2. Make sure you're in the app folder using the `pwd` command. 
@@ -100,6 +107,10 @@ use a different repository / image name if you are familiar with docker:
 5. Check the ECR for the image with tag "latest"
    - Goto the AWS web console
    - Choose ECR service and select your ECR
+   - Look for image with image tag "latest"
+   - Compare "pushed at" timestamp with current time 
+
+There should be at least one image in your ECR when everything done right.   
 
 ### Create an AppRunner service
 
@@ -118,7 +129,7 @@ AppRunner service providing our backend service in a scalable manner:
    - Choose existing service rule "AppRunnerECRAccessRule"
    - Click "next" to get to step 2 of the wizard
 6. AppRunner wizard Step 2 of 3:
-   - Service name: use your animal name to prefix the service name, e.g. dog-app-runner-service.
+   - Service name: use your animal prefix, e.g. dog-app-runner-service.
    - Security instance role: use the existing "AppRunner" role
    - Click "next" button 
 7. AppRunner wizard Step 3 of 3:
@@ -126,8 +137,8 @@ AppRunner service providing our backend service in a scalable manner:
    - Click "Create & Deploy" 
 
 **Note**: The creation and deployment of the AppRunner service may take several minutes.
-Think of all the magic that goes on behind the scenes. So it is only fair to be willing to wait 
-some minutes.  
+Think of all the magic that goes on behind the scenes. So, it seems to be fair enough to 
+be willing to wait some minutes. 
 
 ### Connect our frontend to the AppRunner service
 
@@ -138,21 +149,25 @@ After successfully being deployed it is time to connect our frontend to the AppR
 3. Go to the typescript file showcases.ts that can be found in ./frontend/src of your frontend project. 
 4. Replace the fake URL baseUrl: http://todo.invalid of the entry "2 - Managed Services" with the valid URL of the backend. 
 The result should look like.
-    ```
-    export const SHOWCASES: ShowcaseConfig = {
-    "2 – Managed Services": {
-        baseUrl: "http:[APP_RUNNER_SERVICE_ADDRESS]",
-    },
-    ```
 
-To test the AppRunner service and the connection from our frontend to it open the ok-forum 
+    ```typescript
+    export const SHOWCASES: ShowcaseConfig = {
+   
+        "2 – Managed Services": {
+            baseUrl: "http:[APP_RUNNER_SERVICE_ADDRESS]",
+        },
+    
+    }
+    ```
+To test the AppRunner service and the connection from our frontend to it, open the ok-forum 
 app in a browser of your choice (URL see above) and select the showcase "2 – Managed Services" 
-in the dropdown.  Check if the ok-forum app works properly by clicking through the forums 
+in the dropdown. Check if the ok-forum app works properly by clicking through the forums 
 categories, topics and discussions.
 
 ### Congratulation
 
-Making use of the AppRunner service we have benefit from one of the advanced managed services of AWS.
+Making use of the AppRunner service we have benefit from one of the more advanced managed services of AWS.
+
 Next we will get to know some platform services (aka PaaS) in general and connect our backend to 
 a noSQL service for date and information storage and retrieval called DynamoDB. 
 
