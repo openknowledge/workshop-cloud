@@ -13,7 +13,7 @@ detect changes to the deployed backend service and to trigger a redeployment.
 So, let us change our backend service! We will expand our backend with a permanent NoSQL data storage 
 ([DynamoDB](https://aws.amazon.com/de/dynamodb/)) instead of using an in-memory storage.
 
-During this exercise you will:
+During this exercise you will learn how to:
 
 - Log into the AWS Cloud via AWS management console
 - Create a DynamoDB table 
