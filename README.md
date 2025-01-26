@@ -95,14 +95,18 @@ the visibility is set to public!
 
 2. Go to the typescript file `showcases.ts` that can be found in `./frontend/src` of your frontend 
 project. Replace the fake URL `baseUrl: http://todo.invalid` of the entry "0 – On-Premises" with 
-the valid URL of the backend. The result should look like.   
+the valid URL of the backend. The result should look like. 
 
-    ```
+    ```typescript
     export const SHOWCASES: ShowcaseConfig = {
+        ...
         "0 – On-Premises": {
-            baseUrl: "http:[ASSIGNED_CODESPACE_URI]",
+            baseUrl: "http://[ASSIGNED_CODESPACE_URI]",
         },
+        ...
+    }
     ```
+
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the 
 showcase "0 – On-Premises" in the dropdown. 
 
