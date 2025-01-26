@@ -3,19 +3,26 @@ powered by [open knowledge](https://www.openknowledge.de)
 
 ## Step 1b: Lift & Shift (extended version)
 
-In this exercise, we want to take our current status of the lift & shift solution to the next level. 
-To this end, we want to automate the provisioning and thus make it reproducible. Instead of installing 
-the Java runtime and the backend service manually, we will use a EC2 launch template.
+In this exercise, we want to take the current status of the lift & shift cloud solution 
+to the next level. To this end, we will automate the process of provisioning and thus 
+make it reproducible. Instead of installing the Java runtime and the backend service manually, 
+we will use an EC2 launch template.
 
-In addition, we will scale our service to more than one instances and use a load balancer to route the 
-incoming traffic to one of these instance. The load balancer helps us to connect the internet with the 
-internal cloud environment by securing and forwarding the externals to a so-called target group. The 
-target group in turn routes the incoming calls to the available targets (aka EC2 instances). 
+In addition, we will scale our service to more than one instance and use a load balancer to route the 
+incoming traffic to one of these instances. The load balancer helps us to connect the internet with the 
+internal cloud environment by securing and forwarding the external calls to a so-called target group. The 
+target group in turn routes the incoming calls to the available targets (aka EC2 instances).
 
-See [AWS target groups for your application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html) 
+The following image illustrates the relationships between load balancer, target group and 
+targets (aka available EC2 instances): 
+
+[![Lift & Shift extended version](overview.png "Lift & Shift extended version")](overview.png)
+
+See also [AWS target groups for your application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html) 
 for more details. 
 
-During this exercise you will: 
+During this exercise you will learn how to:
+
 - Log into the AWS Cloud 
 - Create an EC2 launch template
 - Create a target group for routing purpose
@@ -75,8 +82,8 @@ our last exercise.
 echo Update all packages
 yum -y update
 
-echo Install Java 17
-yum -y install java-17-amazon-corretto-headless
+echo Install Java 21
+yum -y install java-21-amazon-corretto-headless
 
 echo Download app
 wget https://github.com/openknowledge/workshop-cloud/releases/download/v2/v2.jar -O app.jar
