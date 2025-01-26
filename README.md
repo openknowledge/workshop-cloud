@@ -8,6 +8,7 @@ an EC2 compute instance in the AWS cloud and install our application on this ins
 start the backend in such a way that it can be accessed from outside the cloud.
 
 During this exercise you will learn how to:
+
 - Login into the AWS Cloud 
 - Provision an EC2 instance
 - Install a java application on EC2
