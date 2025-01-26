@@ -3,23 +3,27 @@ powered by [open knowledge](https://www.openknowledge.de)
 
 ## Step 3: Platform as a Service (PaaS)
 
-In the last exercise, we used a managed service called AppRunner to easily deploy our 
+During the last exercise, we used a managed service called AppRunner to easily deploy our 
 backend service and make it scalable. The AppRunner service has relieved us of the task of setting up and connecting 
 a number of internal AWS components, saving us a lot of time and effort.
 
-In this exercise, we will also use the feature that the AppRunner service automatically recognises changes to the 
-deployed backend service and triggers a redeployment. We are expanding our backend service with a permanent NoSQL 
-data storage ([DynamoDB](https://aws.amazon.com/de/dynamodb/)) and are converting the Spring-Boot application so 
-that the data of the ok-Forum service is persisted there.
+In this exercise, we will get to know an additional feature of that the AppRunner service: The ability to automatically 
+detect changes to the deployed backend service and to trigger a redeployment. 
+
+So, let us change our backend service! We will expand our backend with a permanent NoSQL data storage 
+([DynamoDB](https://aws.amazon.com/de/dynamodb/)) instead of using an in-memory storage.
 
 During this exercise you will:
+
 - Log into the AWS Cloud via AWS management console
-- Create a dynamoDB table 
+- Create a DynamoDB table 
 - Update backend service and related docker image 
 - Update docker image in ECR
 - Change configuration of AppRunner
 
 ### Log into the AWS Cloud
+
+**Note**: This step is only necessary if you are not already logged in. 
 
 First of all we have to connect to the AWS Cloud:
 
@@ -30,36 +34,35 @@ First of all we have to connect to the AWS Cloud:
     - IAM username: [YOUR ANIMAL]
     - Password: [YOUR ANIMAL PWD]
 
-After successfully logged in You should see the AWS CLoud main dashboard.
+After successfully logged in you should see the AWS CLoud main dashboard.
 
 **Note**: Make sure the region in the upper right corner of the browser window
 is set to "Europe (Frankfurt)" aka eu-central-1.
 
-### Create a dynamoDB table
+### Create a DynamoDB table
 
-To create a dynamoDB table we have to call the DynamoDB dashboard first. There are
+To create a DynamoDB table we have to call the DynamoDB dashboard first. There are
 several ways to do so: 
 
 - use global quick search and lookup for "DynamoDB"
 - select DynamoDB service from service overview via "Database"
 - select DynamoDB service from "recently visited" (if available)
 
-Use the DynamoDB dashboard to create and configure a new dynamoDB table: 
+Use the DynamoDB dashboard to create and configure a new DynamoDB table: 
 
 1. Click "Create table" (left border of the dashboard). This will lead 
 you to the "Creat table" page of DynamoDB.
 2. Fill in the following values (and leave everything as is): 
-   - Table name: name your table with the prefix of your animal, e.g. dog-dynamo-table.
-   - Partition key: Use a partition key called "pk" with type string
-   - Sort key: Use a sort key called "sk" with type string
+   - Table name: use the prefix of your animal, e.g. dog-dynamo-table.
+   - Partition key: use a partition key called "pk" with type string
+   - Sort key: use a sort key called "sk" with type string
    - Click "Create table" button
 
-Finally, click "Create table" button. You will see the DynamoDB dashboard tables overview 
-when everything done right.
+You should see the DynamoDB dashboard tables overview when everything done right.
 
 ### Create new version of the backend service
 
-Next we have to update our backend service to be able to access the dynamoDB table we 
+Next we have to update our backend service to be able to access the DynamoDB table we 
 have just created: 
 
 1. Open a new terminal in Codespaces using the terminal tab. 
@@ -82,7 +85,8 @@ already filled in just confirm by pressing `[ENTER]`.
 1. open a new terminal in Codespaces using the terminal tab
 2. Configure your AWS connection using the `aws configure` command that will
    ask you step by step for all relevant information to sign in to AWS via cli:
-    ```
+ 
+    ```sh
     $ aws configure
        
     AWS Access Key ID [None]: [YOUR AWS ACCESS KEY]
@@ -90,6 +94,7 @@ already filled in just confirm by pressing `[ENTER]`.
     Default region name [None]: eu-central-1 
     Default output format [None]: json
     ```
+   
 3. Make an AWS CLI call to test connection, e.g. asking for the caller identity (aka YOU):
 
     ```shell
@@ -110,7 +115,7 @@ Now, we are able to create a new docker image containing the updated version of 
 and use AWS cli to push it to our elastic container registry:  
 
 1. Go to https://console.aws.amazon.com/console/home
-2. Log into your AWS account via web console using your credentials (if not signed in).
+2. Log into your AWS account via web console using your credentials (if not already signed in).
 3. Choose AWS ECR service via global search or service overview (Container).
 4. Choose your ECR service 
 5. Click "View push commands" and follow the instructions using the Codespace terminal 
@@ -122,8 +127,8 @@ and use AWS cli to push it to our elastic container registry:
     - Goto the AWS web console
     - Choose ECR service and select your ECR 
 
-You should see (at least) to images inside your repository because we updated an already existing 
-container image. One of them should have the image tag "latest" a timestamp (pushed at) corresponding
+You should see (at least) two images inside your repository because we updated an already existing 
+container image. One of them should have the image tag "latest" and a timestamp (pushed at) corresponding
 to the current time.
 
 ### Change configuration of AppRunner
@@ -133,12 +138,12 @@ in the container image that has just been pushed to ECR being automatically rede
 a look at AppRunner service dashboard: 
 
 1. Go to https://console.aws.amazon.com/console/home
-2. Log into your AWS account via web console using your credentials (if not signed in).
+2. Log into your AWS account via web console using your credentials (if not already signed in).
 3. Choose AppRunner service via global search or service overview (Compute).
 4. Choose your AppRunner service instance
-5. Scroll down the App Runner event logs. There should be several log entries indicating a redeployment.
+5. Scroll down the App Runner event logs. 
 
-Don't worry if you see a message like 
+There should be several log entries indicating a redeployment. Don't worry if you see a message like 
 
 > "Your application stopped or failed to start. See logs for more information.  Container exit code: 1"
 
@@ -157,16 +162,16 @@ variables:
    - Environment variable value: name of your DynamoDB table
 6. Click "Save changes" button
 
-Switch back to "Logs" tab of your AppRunner service instance and observe the new entries 
+Switch back to "Logs" tab of your AppRunner service instance and observe the new log entries 
 related to the service update (this may take several minutes). 
 
 ### Quick-test the changes
 
 To quick-test the changes just call one of the backend service APIs via AppRunner 
-service from a browser of your choice:
+service from a browser of your choice, e.g. ... 
 
     ```
-    http:[APP_RUNNER_SERVICE_ADDRESS]/users
+    http://[APP_RUNNER_SERVICE_ADDRESS]/users
     ```
 
 ### Connect our frontend to the AppRunner service
@@ -190,7 +195,6 @@ backend. The result should look like.
     }
     ```
 
-
 To test the AppRunner service and the connection from our frontend to it - including 
 the DynamoDB table access - open the ok-forum app in a browser of your choice (URL see above) 
 and select the showcase "3 – PaaS" in the dropdown.  Check if the ok-forum app works properly 
@@ -204,7 +208,7 @@ service instead.
 ### Congratulation
 
 With the help of the AppRunner service we managed to redesign (add a DynamoDB table) and redeploy
-our backend service within minutes instead of hours. The only thing we had to do is updating the 
+our backend service within minutes instead of hours. The only thing we had to do was to update the 
 backend service itself and its related container image and push the image to the elastic container 
 registry (ECR) afterwards.   
 
