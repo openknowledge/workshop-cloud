@@ -57,19 +57,21 @@ ask you step-by-step for all relevant information to sign in to AWS via cli:
     Default output format [None]: json
     ```
 3. Make an AWS CLI call to test connection, e.g. asking for the caller identity (aka YOU):
-    ```
+
+    ```shell
     $ aws sts get-caller-identity
     ```
    
     The output should look something like ...
-    ```
+ 
+    ```json lines
     {  
        "UserId": "AIDASVQKHPCR2LKF6UHNT",
        "Account": "183631313059",
        "Arn": "arn:aws:iam::183631313059:user/dog"
     }  
     ```
-
+   
 ### Make use of the cloud container registry (ECR)
 
 During this step we will create an elastic container registry for our account and 
@@ -152,11 +154,11 @@ The result should look like.
 
     ```typescript
     export const SHOWCASES: ShowcaseConfig = {
-   
+        ...
         "2 – Managed Services": {
             baseUrl: "http:[APP_RUNNER_SERVICE_ADDRESS]",
         },
-    
+        ...
     }
     ```
 To test the AppRunner service and the connection from our frontend to it, open the ok-forum 
