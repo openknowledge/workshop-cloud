@@ -91,16 +91,19 @@ already filled in just confirm by pressing `[ENTER]`.
     Default output format [None]: json
     ```
 3. Make an AWS CLI call to test connection, e.g. asking for the caller identity (aka YOU):
-    ```
+
+    ```shell
     $ aws sts get-caller-identity
+    ```
    
-   
-    OUTPUT SHOULD LOOK LIKE:  
-    {
+    The output should look something like ...
+ 
+    ```json lines
+    {  
        "UserId": "AIDASVQKHPCR2LKF6UHNT",
        "Account": "183631313059",
        "Arn": "arn:aws:iam::183631313059:user/dog"
-    }
+    }  
     ```
 
 Now, we are able to create a new docker image containing the updated version of our backend service 
@@ -176,12 +179,17 @@ to the AppRunner service:
 3. Go to the typescript file showcases.ts that can be found in ./frontend/src of your frontend project.
 4. Replace the fake URL baseUrl: http://todo.invalid of the entry "3 - PaaS" with the valid URL of the 
 backend. The result should look like.
-    ```
+
+    ```typescript
     export const SHOWCASES: ShowcaseConfig = {
-    "3 – PaaS": {
-        baseUrl: "http:[APP_RUNNER_SERVICE_ADDRESS]",
-    },
+        ...
+        "3 – PaaS": {
+            baseUrl: "http://[APP_RUNNER_SERVICE_ADDRESS]",
+        },
+        ...
+    }
     ```
+
 
 To test the AppRunner service and the connection from our frontend to it - including 
 the DynamoDB table access - open the ok-forum app in a browser of your choice (URL see above) 
