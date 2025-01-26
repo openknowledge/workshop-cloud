@@ -142,6 +142,15 @@ AppRunner service providing our backend service in a scalable manner:
 Think of all the magic that goes on behind the scenes. So, it seems to be fair enough to 
 be willing to wait some minutes. 
 
+### Quick-test the changes
+
+To quick-test the changes just call one of the backend service APIs via AppRunner
+service from a browser of your choice, e.g. ...
+
+  ```sh
+  http://[APP_RUNNER_SERVICE_ADDRESS]/users
+  ```
+
 ### Connect our frontend to the AppRunner service
 
 After successfully being deployed it is time to connect our frontend to the AppRunner service.
