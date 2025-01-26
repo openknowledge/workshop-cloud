@@ -146,12 +146,16 @@ from the frontend showcases configuration typescript file `showcases.ts`:
    project. Replace the fake URL `baseUrl: http://todo.invalid` of the entry "1 – Lift & Shift" with
    the valid URL of the backend. The result should look like.
 
-    ```
+    ```typescript
     export const SHOWCASES: ShowcaseConfig = {
+        ...
         "1 – Lift & Shift": {
-            baseUrl: "http:[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]",
+            baseUrl: "http://[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]",
         },
+        ...
+    }
     ```
+   
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "1 – Lift & Shift"
    in the dropdown.
 
