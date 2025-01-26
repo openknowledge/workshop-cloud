@@ -69,7 +69,7 @@ have just created:
 2. Make sure you are in the `app` folder using the `pwd` command.
 3. Build a new version of the backend service using maven:
    
-   ```
+   ```sh
    mvn clean package
    ```
 
@@ -170,9 +170,9 @@ related to the service update (this may take several minutes).
 To quick-test the changes just call one of the backend service APIs via AppRunner 
 service from a browser of your choice, e.g. ... 
 
-    ```
-    http://[APP_RUNNER_SERVICE_ADDRESS]/users
-    ```
+  ```sh
+  http://[APP_RUNNER_SERVICE_ADDRESS]/users
+  ```
 
 ### Connect our frontend to the AppRunner service
 
