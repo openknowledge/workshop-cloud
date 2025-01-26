@@ -1,6 +1,23 @@
-# 4 – Lambda
+# Hands-On Cloud Workshop
+powered by [open knowledge](https://www.openknowledge.de)
 
-In this exercise we use AWS Lambda to add additional functionality to our application without changing any existing backend code.
+## Step 4: Serverless Functions (Lambda)
+
+During the last exercise we have build up step-by-step a cloud based scalable backend service making use of various 
+different cloud managed services and components. 
+
+In this exercise we will use serverless functions - aka [AWS Lambda](https://aws.amazon.com/lambda/) - to add 
+additional functionality to our application setup without any changes to the existing backend code. 
+
+During this exercise you will learn how to:
+
+- Create and change Lambda functions
+- Trigger Lambda functions with a cloud event 
+- Monitor Lambda functions
+
+
+
+
 We want to do "something" whenever a new topic is added to our forum.
 To do this we use any DynamoDB change in our table as trigger for our Lambda function.
 
