@@ -156,7 +156,7 @@ The result should look like.
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "2 – Managed Services": {
-            baseUrl: "http:[APP_RUNNER_SERVICE_ADDRESS]",
+            baseUrl: "http://[APP_RUNNER_SERVICE_ADDRESS]",
         },
         ...
     }
