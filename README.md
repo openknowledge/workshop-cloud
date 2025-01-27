@@ -178,7 +178,7 @@ should be one.
 
 Delete the DynamoDB entry afterwards with the help of the AWS DynamoDB dashboard of 
 your DynamoDB table. Go to the CloudWatch log of the Lambda function and search for 
-a corresponding DELETE entry - there should be NONE.
+a corresponding REMOVE entry - there should be NONE.
 
 ### Congratulations 
 
