@@ -17,6 +17,7 @@ import de.openknowledge.workshop.cloud.repositories.CategoryRepository;
 import de.openknowledge.workshop.cloud.repositories.TopicRepository;
 import de.openknowledge.workshop.cloud.repositories.UserRepository;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Logger;
@@ -76,6 +77,14 @@ class InsertTestData {
 
     @EventListener(ApplicationReadyEvent.class)
     public void insertTestData() {
+
+        LOGGER.info(
+            format(
+                "Start inserting initial data into '%s' ... ",
+                tableName
+            )
+        );
+
         User userOne = newUser("Lars", "Röwekamp")
             .withUUID(UUID.fromString("a7ce7689-bf9b-41a4-b4de-8bb5aec9bb21"))
             .withNickName("mobileLarson")
@@ -209,5 +218,14 @@ class InsertTestData {
                 topicRepository.countTopics()
             )
         );
+
+        LOGGER.info(
+            format(
+                "Start inserting initial data into '%s' ... DONE",
+                tableName
+            )
+        );
+
+
     }
 }
