@@ -17,10 +17,13 @@ package de.openknowledge.workshop.cloud.repositories;
 
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
+import software.amazon.awssdk.services.dynamodb.model.DynamoDbException;
 import software.amazon.awssdk.services.dynamodb.model.GetItemRequest;
 import software.amazon.awssdk.services.dynamodb.model.Put;
 import software.amazon.awssdk.services.dynamodb.model.PutItemRequest;
+import software.amazon.awssdk.services.dynamodb.model.PutItemResponse;
 import software.amazon.awssdk.services.dynamodb.model.PutRequest;
+import software.amazon.awssdk.services.dynamodb.model.ResourceNotFoundException;
 import software.amazon.awssdk.services.dynamodb.model.QueryRequest;
 import software.amazon.awssdk.services.dynamodb.model.TransactWriteItem;
 
@@ -48,6 +51,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TopicRepository {
+
     @Value("${dynamodb.table}")
     private String tableName;
 
@@ -172,10 +176,25 @@ public class TopicRepository {
     }
 
     public void addTopic(Topic topic) {
+
+        /*
+            adding a topic ends up in several dynamo db entries:
+            1.) t->c:topicUUID (relation from topic to category)
+            2.) c->t:categoryUUID (relation from category to topic)
+            3.) t->p:topicUUID (relation from topic to its posts)
+         */
+
         var topicCategoryIdItem = new HashMap<String, AttributeValue>();
 
+        // 1.) t->c:topicUUID (relation from topic to category)
+
+        // topic id
         topicCategoryIdItem.put("pk", AttributeValue.builder().s(format("t->c:%s", topic.getId())).build());
+
+        // sk indicating that this is the related category id (for topic)
         topicCategoryIdItem.put("sk", AttributeValue.builder().s("category_id").build());
+
+        // category id
         topicCategoryIdItem.put("category_id", AttributeValue.builder().s(topic.getCategoryId().toString()).build());
 
         var topicCategoryIdRequest = PutItemRequest.builder()
@@ -183,7 +202,25 @@ public class TopicRepository {
                 .item(topicCategoryIdItem)
                 .build();
 
-        dynamoDbClient.putItem(topicCategoryIdRequest);
+        try {
+            PutItemResponse response = dynamoDbClient.putItem(topicCategoryIdRequest);
+
+            LOGGER.info(
+                format(
+                    "Topic -> Category relation added: t->c:%s ", topic.getId()
+                )
+            );
+
+        } catch (ResourceNotFoundException e) {
+            System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
+            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            // System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            // System.exit(1);
+        }
+
+        // 2.) c->t:categoryUUID (relation from category to topic)
 
         var topicItem = new HashMap<String, AttributeValue>();
 
@@ -195,14 +232,35 @@ public class TopicRepository {
         topicItem.put("created_on", AttributeValue.builder()
                 .s(new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z").format(topic.getCreatedOn())).build());
 
-        var putTopicRequest = PutItemRequest.builder()
-                .tableName(tableName)
-                .item(topicItem)
-                .build();
 
-        dynamoDbClient.putItem(putTopicRequest);
+        var putTopicRequest = PutItemRequest.builder()
+            .tableName(tableName)
+            .item(topicItem)
+            .build();
+
+        try {
+
+            PutItemResponse response = dynamoDbClient.putItem(putTopicRequest);
+
+            LOGGER.info(
+                format(
+                    "Category -> Topic relation added: c->t:%s / t:%s", topic.getCategoryId(), topic.getId()
+                )
+            );
+
+        } catch (ResourceNotFoundException e) {
+            System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
+            System.err.println("Be sure that it exists and that you've typed its name correctly!");
+            System.exit(1);
+        } catch (DynamoDbException e) {
+            System.err.println(e.getMessage());
+            // System.exit(1);
+        }
+
+        // 3.) t->p:topicUUID (relation from topic to its posts)
 
         topic.getPosts().forEach(post -> {
+
             var postItem = new HashMap<String, AttributeValue>();
 
             postItem.put("pk", AttributeValue.builder().s(format("t->p:%s", topic.getId())).build());
@@ -214,12 +272,31 @@ public class TopicRepository {
                     new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z").format(post.getCreatedOn())).build());
 
             var putPostRequest = PutItemRequest.builder()
-                    .tableName(tableName)
-                    .item(postItem)
-                    .build();
+                .tableName(tableName)
+                .item(postItem)
+                .build();
 
-            dynamoDbClient.putItem(putPostRequest);
+            try {
+
+                PutItemResponse response = dynamoDbClient.putItem(putPostRequest);
+
+                LOGGER.info(
+                    format(
+                        "Topic -> Post relation added: t->p:%s / p:%s", topic.getId(), post.getId()
+                    )
+                );
+
+            } catch (ResourceNotFoundException e) {
+                System.err.format("Error: The Amazon DynamoDB table \"%s\" can't be found.\n", tableName);
+                System.err.println("Be sure that it exists and that you've typed its name correctly!");
+                System.exit(1);
+            } catch (DynamoDbException e) {
+                System.err.println(e.getMessage());
+                // System.exit(1);
+            }
         });
+
+        topics.add(topic);
     }
 
     public Integer countTopics() {

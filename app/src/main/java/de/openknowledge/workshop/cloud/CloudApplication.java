@@ -166,6 +166,7 @@ class InsertTestData {
 
         if (getCategoryIdResponse.hasItem()) {
             // Test data already inserted
+            LOGGER.info("SKIP 'Insert test data into DynamoDB: already inserted!");
             return;
         }
 
@@ -218,6 +219,7 @@ class InsertTestData {
                 topicRepository.countTopics()
             )
         );
+
 
         LOGGER.info(
             format(
