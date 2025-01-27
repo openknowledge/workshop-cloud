@@ -133,6 +133,22 @@ our serverless function was triggered and has worked properly?
 Feel free to play around with the Lambda function, and it's DynamoDB triggered event. For example, 
 try to print out the individual elements of the DynamoDB event, like the topic name, in the log.
 
+You can use 
+
+  ```typescript
+  console.log(JSON.stringify(event, null, 2));
+  ```
+
+or 
+
+  ```typescript
+  if (record.eventName === 'INSERT') {
+    console.log(`- Description: ${record.dynamodb.NewImage.description.S}`);
+    console.log(`- Title: ${record.dynamodb.NewImage.title.S}`);
+  }
+  ```
+to log detailed event information inside your Lambda function. 
+
 ### Congratulations 
 
 ... 
