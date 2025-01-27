@@ -86,10 +86,10 @@ You should see the overview page of your serverless function showing DynamoDB as
 Now, it is time to adapt the code of our serverless function and to deploy it afterwards. 
 
 1. Select "Code" tab
-2. Replace `//TODO implementc with following code 
+2. Replace `//TODO implement` with following code 
 
     ``` typescript
-     console.log("Hello <your-username>!")
+     console.log("Hello <your-username>!") // YOUR USER NAME HERE 
     ``` 
 3. Click "Test" button left to the code editor to test the changes 
 4. Click "Deploy" button left to the code editor to make the function available 
