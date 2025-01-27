@@ -149,6 +149,37 @@ or
   ```
 to log detailed event information inside your Lambda function. 
 
+Great, we managed to monitor our lambda function and its DynamoDB trigger. But let us
+assume we are only interested in INSERT events but not in UPDATE or DELETE events of 
+our DynamoDB table. Fortunately there is a way to set a filter criteria to our DynamoDB
+trigger: 
+
+1. Open Lambda dashboard
+2. Select "Functions" in Lambda menu
+3. Select YOUR function from functions overview page
+4. Click DynamoDB trigger icon in diagram
+5. Select YOUR trigger (checkbox)
+6. Click "Edit" button.
+7. Collapse "Advanced settings"
+8. Insert filter criteria
+
+  ```
+  { "eventName" :  [ "INSERT" ] }
+  ```
+9. Click "Save" button
+
+**Note**: Saving the changed trigger configuration will redeploy your Lambda function automatically.
+
+To test the new configuration add a new topic. You can do this with the help of 
+our ok-forum frontend or directly by copying and pasting an existing topic item
+to the DynamoDB table (don't forget to change the `pk`). Go to the CloudWatch log
+of the Lambda function and search for a corresponding INSERT entry - there 
+should be one. 
+
+Delete the DynamoDB entry afterwards with the help of the AWS DynamoDB dashboard of 
+your DynamoDB table. Go to the CloudWatch log of the Lambda function and search for 
+a corresponding DELETE entry - there should be NONE.
+
 ### Congratulations 
 
 ... 
