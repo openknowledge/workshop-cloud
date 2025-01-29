@@ -3,7 +3,10 @@ export const SHOWCASES: ShowcaseConfig = {
     baseUrl: "http://todo.invalid",
   },
   "1 – Lift & Shift": {
-    baseUrl: "http://todo.invalid",
+    baseUrl: "https://proxy.cloud.workshop.openknowledge.services",
+    // Add target IP of EC2 instance or dns entry of your load balancer
+    // without any protocol or path
+    targetHost: "todo.invalid",
   },
   "2 – Managed Services": {
     baseUrl: "http://todo.invalid",
@@ -20,12 +23,14 @@ type ShowcaseConfig = Record<string, SimpleShowcase | Showcase>;
 
 interface SimpleShowcase {
   baseUrl: string;
+  targetHost?: string;
 }
 
 interface Showcase {
   categoryBaseUrl: string;
   topicBaseUrl: string;
   postBaseUrl: string;
+  targetHost?: string;
 }
 
 export const getShowcase = (showcaseName: string): Showcase => {
@@ -38,13 +43,21 @@ export const getShowcase = (showcaseName: string): Showcase => {
     const topicBaseUrl = new URL("/topics", baseUrl).toString();
     const postBaseUrl = new URL("/posts", baseUrl).toString();
 
-    return {
+    let currentShowcase: Showcase = {
       categoryBaseUrl,
       topicBaseUrl,
       postBaseUrl,
     };
-  }
 
+    if ("targetHost" in rawShowcase) {
+      currentShowcase = {
+        ...currentShowcase,
+        targetHost: rawShowcase.targetHost,
+      }
+    }
+
+    return currentShowcase;
+  }
   return rawShowcase;
 };
 
