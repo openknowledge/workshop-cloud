@@ -50,8 +50,8 @@ resource "aws_instance" "app" {
   echo Update all packages
   yum -y update
 
-  echo Install Java 17
-  yum -y install java-17-amazon-corretto-headless
+  echo Install Java 21
+  yum -y install java-21-amazon-corretto-headless
 
   echo Download app
   wget ${local.release_url} -O app.jar
