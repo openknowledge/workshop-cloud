@@ -23,5 +23,7 @@
         "hashicorp.terraform"
       ]
     }
-  }
+  },
+  "postStartCommand": "sdk default java 21.0.5-amzn"
+
 }
