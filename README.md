@@ -63,7 +63,14 @@ You should see the DynamoDB dashboard tables overview when everything done right
 ### Create new version of the backend service
 
 Next we have to update our backend service to be able to access the DynamoDB table we 
-have just created: 
+have just created. The backend service itself is already able to access DynamoDB tables  
+in general (see TopicRepository class in app/src/main/java for details). But of course we
+have to configure which table to use: 
+
+1. Open `application.properties` in app/src/main/resources.
+2. Replace `YOUR_DYNAMO_DB_TABLE` with your DynamoDB table name. 
+
+After we have changed the configuration, we can rebuild the backend service: 
 
 1. Open a new terminal in Codespaces using the terminal tab. 
 2. Make sure you are in the `app` folder using the `pwd` command.
