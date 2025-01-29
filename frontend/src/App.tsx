@@ -9,10 +9,10 @@ import {
 import "./App.css";
 import okLogo from "./assets/logo.png";
 import {
-  CURRENT_SHOWCASE,
-  CURRENT_SHOWCASE_NAME,
-  SHOWCASES,
-  setCurrentShowcase,
+    CURRENT_SHOWCASE,
+    CURRENT_SHOWCASE_NAME,
+    SHOWCASES,
+    setCurrentShowcase,
 } from "./showcases.ts";
 
 const ShowcaseBar = () => {
@@ -503,6 +503,26 @@ const router = createBrowserRouter([
 
 // a function called appFetch that behaves like fetch but throws an error on non 200 or 300 status codes
 const appFetch = async (input: RequestInfo | URL, init?: RequestInit) => {
+  if (CURRENT_SHOWCASE.targetHost !== undefined) {
+    const headers = {
+      "X-Target-Host": CURRENT_SHOWCASE.targetHost,
+    }
+    if (init !== undefined) {
+      if (init.headers === undefined) {
+        init.headers = headers;
+      } else {
+        init.headers = {
+          ...init.headers,
+          ...headers,
+        };
+      }
+    } else {
+      init = {
+        method: "GET",
+        headers: headers,
+      };
+    }
+  }
   const res = await fetch(input, init);
 
   if (!res.ok) {
