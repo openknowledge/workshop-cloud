@@ -21,7 +21,7 @@ locals {
 }
 
 locals {
-  release_url = "https://github.com/openknowledge/workshop-mad-summit-sommer-2024-cloud/releases/download/v2/v2.jar"
+  release_url = "https://github.com/openknowledge/workshop-cloud/releases/download/v3/ok-forum.jar"
 }
 
 data "aws_ami" "app" {
