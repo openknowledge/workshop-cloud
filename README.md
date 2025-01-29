@@ -148,15 +148,15 @@ from the frontend showcases configuration typescript file `showcases.ts`:
     - copy the public IPv4 address or the public IPv4 DNS from the summary page
 
 2. Go to the typescript file `showcases.ts` that can be found in ./frontend/src of your frontend
-   project. Replace the fake URL `baseUrl: http://todo.invalid` of the entry "1 – Lift & Shift" with
-   the valid URL of the backend. The result should look like.
+   project. Replace the fake target IP of the EC2 instance `targetIp: "todo.invalid"` 
+   of the entry "1 – Lift & Shift" with the valid IP of your EC2 instance. The result should look like.
 
     ```typescript
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "1 – Lift & Shift": {
-            baseUrl: "http://",
-            tagetIp: "ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
+            baseUrl: "http://cloud.workshop.openknowledge.services",
+            tagetIp: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
         },
         ...
     }
