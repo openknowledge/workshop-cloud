@@ -37,18 +37,24 @@ During this exercise you will:
 
 ### Using AWS CLI to connect to the cloud  
 
-First of all we want to connect to our AWS account via AWS command line interface (ala AWS CLI). This is necessary to 
-be able to push the docker image with our backend service to the Elastic Container Registry later on. Fortunately we 
-already installed the AWS CLI tool when setting up the GitHub Codespace. 
+Until now, we have always logged into our AWS account via the web-based AWS Management Console. In this 
+exercise we will learn how to additionally use the AWS command line interface (ala AWS CLI) for logging in. 
 
-**Note**: For the next step, you will need an AWS credential, which you were given for the workshop.
+We will need the AWS cli connection later on to be able to push a docker image with our backend service 
+to the AWS Elastic Container Registry. Fortunately we have already installed the AWS CLI tool when setting 
+up the GitHub Codespace. 
+
+**Note**: For the next step, you will need the AWS credential (Access Key ID & Secret Access Key), which you 
+were given for the workshop.
 
 Connect to our AWS account via AWS command line interface: 
 
-1. open a new terminal in Codespaces using the terminal tab
+1. Open Codespaces (you may have to restart if suspended).
+1. Open a new terminal in Codespaces using the terminal tab. 
 2. Configure your AWS connection using the `aws configure` command that will
 ask you step-by-step for all relevant information to sign in to AWS via cli:    
-    ```
+
+    ```shell
     $ aws configure
        
     AWS Access Key ID [None]: [YOUR AWS ACCESS KEY]
@@ -85,7 +91,7 @@ Let's start with creating the ECR for our/your account:
 3. Choose AWS ECR service via global search or service overview (Container). 
 4. Click "Create repository". This will lead you to the "Create a private repository" page.
 5. Fill in the following values (and leave everything else as is): 
-   - repository name: use your animal as prefix, e.g. dog-container-repository.
+   - repository name: use ok-cloud-workshop as namespace and your animal as prefix, e.g. ok-cloud-workshop/dog-container-repository.
 6. Click "Create" to initialize and create an empty container repository. 
 
 Next, we want to build a docker image containing our backend service and push it to the registry: 
@@ -122,7 +128,7 @@ AppRunner service providing our backend service in a scalable manner:
 1. Go to https://console.aws.amazon.com/console/home
 2. Log into your AWS account via web console using your credentials.
 3. Choose AppRunner service via global search or service overview (Compute).
-4. Click "Create service". This will lead you to AppRunner create service wizard (step 1 of 3)
+4. Click "Create an AppRunner service". This will lead you to AppRunner create service wizard (step 1 of 3)
 5. AppRunner wizard step 1 of 3: 
    - Select "Container registry" (should be pre-selected)
    - Select "Amazon ECR" (should be pre-selected)
@@ -148,7 +154,7 @@ To quick-test the changes just call one of the backend service APIs via AppRunne
 service from a browser of your choice, e.g. ...
 
   ```sh
-  http://[APP_RUNNER_SERVICE_ADDRESS]/users
+  https://[APP_RUNNER_SERVICE_ADDRESS]/users
   ```
 
 ### Connect our frontend to the AppRunner service
@@ -158,14 +164,14 @@ After successfully being deployed it is time to connect our frontend to the AppR
 1. Goto AppRunner service page and select your AppRunner instance
 2. Copy the AppRunner service default domain 
 3. Go to the typescript file showcases.ts that can be found in ./frontend/src of your frontend project. 
-4. Replace the fake URL baseUrl: http://todo.invalid of the entry "2 - Managed Services" with the valid URL of the backend. 
-The result should look like.
+4. Replace the fake URL baseUrl: https://todo.invalid of the entry "2 - Managed Services" with the valid 
+URL of the backend. The result should look like: 
 
     ```typescript
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "2 – Managed Services": {
-            baseUrl: "http://[APP_RUNNER_SERVICE_ADDRESS]",
+            baseUrl: "https://[APP_RUNNER_SERVICE_ADDRESS]",
         },
         ...
     }
