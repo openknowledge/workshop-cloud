@@ -174,8 +174,14 @@ related to the service update (this may take several minutes).
 
 ### Quick-test the changes
 
-To quick-test the changes just call one of the backend service APIs via AppRunner 
-service from a browser of your choice, e.g. ... 
+There are two possibilities to check if everything worked fine: 
+
+Version 1: Open the DyanmoDB dashboard. Select your table and click "Explore table items". 
+If you "Run" a new scan, you will see the table items.  
+
+
+Version 2. Call one of the backend service APIs via AppRunner service from a browser of 
+your choice, e.g. ... 
 
   ```sh
   http://[APP_RUNNER_SERVICE_ADDRESS]/users
