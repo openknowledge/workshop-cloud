@@ -55,9 +55,8 @@ is set to "Europe (Frankfurt)" aka eu-central-1.
 
 ### Create an EC2 launch template
 
-To create an EC2 launch template we have to call the EC2 service configuration webpage first.
-
-As already shown in the previous exercise, there are several ways to call the EC2 service configuration webpage:
+To create an EC2 launch template we have to call the EC2 service configuration webpage first. As already 
+shown in the previous exercise, there are several ways to call the EC2 service configuration webpage:
 
 - use global quick search and lookup for "EC2"
 - select EC2 service from service overview via "compute"
@@ -65,13 +64,15 @@ As already shown in the previous exercise, there are several ways to call the EC
 
 Next, use the EC2 service dashboard to create a launch template:
 
-1. Select "Launch Templates" from the EC2 Instance menu (left border of the dashboard). This will 
-lead you to the "Create launch template" page that looks very similar to the "Create Instance" from 
+1. Select "Launch Templates" from the EC2 Instance menu (left border of the dashboard). 
+2. Click "Create launch template" on the subsequently appearing launch templates overview page.
+3. This will lead you to the "Create launch template" page that looks very similar to the "Create Instance" from 
 our last exercise.
-2. Fill in the following values (and leave everything else as is):
+4. Fill in the following values (and leave everything else as is):
    - Launch template name and description: use your animal as prefix, e.g. dog-launch-template.
-   - Application and OS images: Select the most recent Amazon Linux as OS (should be preselected). 
-   - Instance type: select t3a.nano 
+   - 
+   - Application and OS images: Select the most recent Amazon Linux as OS (via Quick Start). 
+   - Instance type: select t3a.nano (search for t3a)
    - Key pair: select "Don't include in launch template"
    - Network settings:
      - click "Select existing security group"
@@ -90,7 +91,7 @@ our last exercise.
         yum -y install java-21-amazon-corretto-headless
         
         echo Download app
-        wget https://github.com/openknowledge/workshop-cloud/releases/download/v2/v2.jar -O app.jar
+        wget https://github.com/openknowledge/workshop-cloud/releases/download/v3/ok-forum.jar -O app.jar
         
         echo Start app
         java -jar app.jar --server.port=80
@@ -198,8 +199,6 @@ Use a browser, Postman or whatever to send the call (http GET-request):
 
 ### Connecting frontend and backend
 
-_DRAFT VERSION - CHANGES MY OCCUR DUE TO CODESPACES TLS ISSUE_
-
 Finally, we want to connect our frontend to the cloud based backend service with the help of the 
 application load balancer and all the other cloud components we just created. 
 
@@ -227,22 +226,7 @@ typescript file `showcases.ts`:
         },
         ...
     }
-    ```   
-
-
-2. Go to the typescript file `showcases.ts` that can be found in ./frontend/src of your frontend
-   project. Replace the fake target IP of the EC2 instance `targetIp: "todo.invalid"`
-   of the entry "1 – Lift & Shift" with the valid IP of your EC2 instance. The result should look like.
-
-    ```typescript
-    export const SHOWCASES: ShowcaseConfig = {
-        ...
-        "1 – Lift & Shift": {
-            baseUrl: "http://cloud.workshop.openknowledge.services",
-            tagetIp: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
-        },
-        ...
-    }
+    ```
 
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "1 – Lift & Shift"
    in the dropdown.
