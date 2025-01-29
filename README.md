@@ -103,15 +103,16 @@ have to install java first:
 4. Download our backend service to the EC2 instance via `wget`: 
 
     ```
-    wget https://github.com/openknowledge/workshop-cloud/releases/download/v2/v2.jar
+    wget https://github.com/openknowledge/workshop-cloud/releases/download/v3/ok-forum.jar
     ```
 
     If your run into a permission issue while trying to store the v2.jar file on the EC2 system 
 you may not be in your home directory!
+
 5. Start the backend service on port 80: 
 
     ```
-    sudo java -jar v2.jar --server.port=80
+    sudo java -jar ok-forum.jar --server.port=80
     ```
    
 You should see a corresponding Spring Boot output when everything went well.  
@@ -154,7 +155,8 @@ from the frontend showcases configuration typescript file `showcases.ts`:
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "1 – Lift & Shift": {
-            baseUrl: "http://[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]",
+            baseUrl: "http://",
+            tagetIp: "ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
         },
         ...
     }
