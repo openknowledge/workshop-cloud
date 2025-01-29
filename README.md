@@ -16,7 +16,7 @@ target group in turn routes the incoming calls to the available targets (aka EC2
 The following image illustrates the relationships between load balancer, target group and 
 targets (aka available EC2 instances): 
 
-[![Lift & Shift extended version](overview.png "Lift & Shift extended version")](overview.png)
+[![Lift & Shift extended version](AppRunner_overview.png "Lift & Shift extended version")](AppRunner_overview.png)
 
 See also [AWS target groups for your application Load Balancers](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-target-groups.html) 
 for more details. 
