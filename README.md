@@ -215,18 +215,34 @@ typescript file `showcases.ts`:
     - copy the DNS name of the load balancer 
 
 2. Go to the typescript file `showcases.ts` that can be found in ./frontend/src of your frontend
-   project. Replace the fake URL `baseUrl: http://todo.invalid` of the entry "1 – Lift & Shift" with
-   the valid URL of the backend. The result should look like.
+   project. Replace the fake Ip of the load balancer `targetIp: "todo.invalid"` of the entry 
+   "1 – Lift & Shift" with the valid IP of your load balancer instance. The result should look like.
 
     ```typescript
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "1 – Lift & Shift": {
-            baseUrl: "http://[LOAD_BALANCER_DNS]",
+            baseUrl: "http://cloud.workshop.openknowledge.services",
+            targetIp: "[LOAD_BALANCER_DNS]"
         },
         ...
     }
     ```   
+
+
+2. Go to the typescript file `showcases.ts` that can be found in ./frontend/src of your frontend
+   project. Replace the fake target IP of the EC2 instance `targetIp: "todo.invalid"`
+   of the entry "1 – Lift & Shift" with the valid IP of your EC2 instance. The result should look like.
+
+    ```typescript
+    export const SHOWCASES: ShowcaseConfig = {
+        ...
+        "1 – Lift & Shift": {
+            baseUrl: "http://cloud.workshop.openknowledge.services",
+            tagetIp: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
+        },
+        ...
+    }
 
 3. Open the ok-forum app in a browser of your choice (URL see above) and select the showcase "1 – Lift & Shift"
    in the dropdown.
