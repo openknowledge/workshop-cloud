@@ -95,7 +95,11 @@ have to install java first:
     ```
     java -version
     ```
-3. Goto home directory using `cd ~`.
+3. Change working directory to your home directory: 
+
+    ```
+    cd ~
+    ```
 4. Download our backend service to the EC2 instance via `wget`: 
 
     ```
