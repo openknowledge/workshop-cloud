@@ -51,7 +51,7 @@ to configure your future instance.
 configuration topics and options):
    - Name and tags: name your instance with the prefix of your animal, e.g. dog-ec2. 
    - Application and OS images: Select the most recent Amazon Linux as OS (should be preselected). 
-   - Instance type: select t3a.nano 
+   - Instance type: select t3**a**.nano (not t3.nano!)
    - Key pair: select "Proceed without a keypair"
    - Network settings:
      - click "Select existing security group"
@@ -155,7 +155,7 @@ from the frontend showcases configuration typescript file `showcases.ts`:
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "1 – Lift & Shift": {
-            baseUrl: "http://cloud.workshop.openknowledge.services",
+            baseUrl: "https://proxy.cloud.workshop.openknowledge.services",
             tagetHost: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
         },
         ...
