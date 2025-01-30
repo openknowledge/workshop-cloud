@@ -20,7 +20,7 @@ the [open knowledge Cloud Workshop](https://github.com/openknowledge/workshop-cl
 To bring the frontend up and running we have to install some react modules via `npm` package manager 
 and start the react-based frontend in development mode afterward. 
 
-**Note**: See `packages.json` inf `frontend` folder for installation details.
+**Note**: See `packages.json` in `frontend` folder for installation details.
 
 To do so, just perform the following steps:
 
@@ -78,7 +78,7 @@ under which the backend can be reached (should be 8080).
 5. Test the backend using your browser, postman, ...  
 
     ```
-    https:[ASIGNED_CODESPACE_URI]/users
+    [ASIGNED_CODESPACE_URI]/users
     ```
     You have to confirm that 'you are about to access a development port served by someone's codespace'
 
@@ -101,7 +101,7 @@ the valid URL of the backend. The result should look like.
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "0 – On-Premises": {
-            baseUrl: "http://[ASSIGNED_CODESPACE_URI]",
+            baseUrl: "[ASSIGNED_CODESPACE_URI]",
         },
         ...
     }
