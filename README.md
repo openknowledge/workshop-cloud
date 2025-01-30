@@ -106,7 +106,7 @@ have to install java first:
     wget https://github.com/openknowledge/workshop-cloud/releases/download/v3/ok-forum.jar
     ```
 
-    If your run into a permission issue while trying to store the v2.jar file on the EC2 system 
+    If your run into a permission issue while trying to store the ok-forum.jar- file on the EC2 system 
 you may not be in your home directory!
 
 5. Start the backend service on port 80: 
@@ -156,7 +156,7 @@ from the frontend showcases configuration typescript file `showcases.ts`:
         ...
         "1 – Lift & Shift": {
             baseUrl: "http://cloud.workshop.openknowledge.services",
-            tagetIp: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
+            tagetHost: "[ASSIGNED_EC2_PUBLIC_IPv4_ADDRESS]"
         },
         ...
     }
