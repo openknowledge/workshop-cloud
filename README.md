@@ -214,15 +214,15 @@ typescript file `showcases.ts`:
     - copy the DNS name of the load balancer 
 
 2. Go to the typescript file `showcases.ts` that can be found in ./frontend/src of your frontend
-   project. Replace the fake Ip of the load balancer `targetIp: "todo.invalid"` of the entry 
+   project. Replace the fake host of the load balancer `targetHost: "todo.invalid"` of the entry 
    "1 – Lift & Shift" with the valid IP of your load balancer instance. The result should look like.
 
     ```typescript
     export const SHOWCASES: ShowcaseConfig = {
         ...
         "1 – Lift & Shift": {
-            baseUrl: "http://cloud.workshop.openknowledge.services",
-            targetIp: "[LOAD_BALANCER_DNS]"
+            baseUrl: "https://proxy.cloud.workshop.openknowledge.services",
+            targetHost: "[LOAD_BALANCER_DNS]"
         },
         ...
     }
