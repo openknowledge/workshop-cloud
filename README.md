@@ -203,7 +203,7 @@ Finally, we want to connect our frontend to the cloud based backend service with
 application load balancer and all the other cloud components we just created. 
 
 As already shown in the previous exercises, to do so we have to reference the above evaluated 
-application load balancer URL (aka LOAD_BALANCER_DNS) from the frontend showcases configuration 
+application load balancer URL (aka LOAD\_BALANCER\åå_DNS) from the frontend showcases configuration 
 typescript file `showcases.ts`:
 
 **Note**: You can skip step 1 if you have the load balancer dns name already available. 
