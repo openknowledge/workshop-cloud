@@ -137,8 +137,6 @@ You should see some JSON data - forum users or forum categories - corresponding 
 
 ### Connecting frontend and backend
 
-_DRAFT VERSION - CHANGES MY OCCUR DUE TO CODESPACES TLS ISSUE_
-
 Finally, we want to connect our frontend to the cloud based backend service. As already shown in the 
 first (on premise) exercise, to do so we have to reference the above evaluated URL of or backend service 
 from the frontend showcases configuration typescript file `showcases.ts`:
