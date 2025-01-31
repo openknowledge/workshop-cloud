@@ -1,20 +1,22 @@
 {
   "image": "mcr.microsoft.com/devcontainers/universal:2",
-  
+  "containerEnv": {
+    "DISABLE_JAVA_BUILD": "true"
+  },
   "features": {
-      "ghcr.io/devcontainers/features/aws-cli:1": {},
-      "ghcr.io/devcontainers/features/node:1": {
-          "version": "20"
-      },
-      "ghcr.io/devcontainers/features/java:1": {
-          "version": "21",
-          "jdkDistro": "amzn",
-          "installMaven": true,
-          "mavenVersion": "3.9.7"           
-      },
-      "ghcr.io/devcontainers/features/terraform:1": {
-          "version": "1.3.8"
-      }
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21.0.5",
+      "jdkDistro": "amzn",
+      "installMaven": true,
+      "mavenVersion": "3.9.7"
+    },
+    "ghcr.io/devcontainers/features/terraform:1": {
+      "version": "1.3.8"
+    }
   },
   "customizations": {
     "vscode": {
