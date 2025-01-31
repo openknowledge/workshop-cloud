@@ -182,4 +182,5 @@ a corresponding REMOVE entry - there should be NONE.
 
 ### Congratulations 
 
-... 
+In this exercise, you have entered the universe of serverless functions - that's really all 
+you can do. SERVERLESS, REDUCE TO THE MAX! 
