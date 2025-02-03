@@ -133,7 +133,7 @@ the REST-ful service APIs of our backend:
     http://$DOMAIN/categories
     ```
 
-You should see some JSON data - forum users or forum categories - corresponding to your call.  
+You should see some JSON data corresponding to your call.  
 
 ### Connecting frontend and backend
 
@@ -170,7 +170,5 @@ from the frontend showcases configuration typescript file `showcases.ts`:
 
 ### Congratulations ...
 
-Great! You have successfully completed your first steps in the cloud!
-
+Great! You have successfully completed your first steps in the cloud! 
 Now it's time dive DEEPER INTO THE CLOUD ...
-
