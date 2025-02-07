@@ -69,8 +69,8 @@ Next, use the EC2 service dashboard to create a launch template:
 3. This will lead you to the "Create launch template" page that looks very similar to the "Create Instance" from 
 our last exercise.
 4. Fill in the following values (and leave everything else as is):
+
    - Launch template name and description: use your animal as prefix, e.g. dog-launch-template.
-   - 
    - Application and OS images: Select the most recent Amazon Linux as OS (via Quick Start). 
    - Instance type: select t3a.nano (search for t3a)
    - Key pair: select "Don't include in launch template"
